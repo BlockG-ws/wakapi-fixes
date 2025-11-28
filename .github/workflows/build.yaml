@@ -41,7 +41,7 @@ jobs:
         run: |
             git apply ../wakapi-874_full-sync_wal_flush_mode.patch && echo "the patch is done"
             echo
-            cat ./wakapi/config/db.go
+            cat ./config/db.go
             echo
             git status
 

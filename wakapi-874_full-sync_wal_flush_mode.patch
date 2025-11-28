@@ -1,0 +1,17 @@
+Subject: [PATCH] wakapi-874 full-sync wal flush mode
+---
+Index: config/db.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/config/db.go b/config/db.go
+--- a/config/db.go	(revision 5080344cea38d11c9c21790d70cd079d84a8436e)
++++ b/config/db.go	(date 1764316518006)
+@@ -114,5 +114,5 @@
+ }
+ 
+ func sqliteConnectionString(config *dbConfig) string {
+-	return fmt.Sprintf("%s?busy_timeout=10000&journal_mode=wal", config.Name)
++	return fmt.Sprintf("%s?busy_timeout=10000&journal_mode=wal&synchronous=FULL", config.Name)
+ }

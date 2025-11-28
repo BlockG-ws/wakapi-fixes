@@ -40,6 +40,9 @@ jobs:
         working-directory: wakapi
         run: |
             git apply ../wakapi-874_full-sync_wal_flush_mode.patch && echo "the patch is done"
+            echo
+            cat ./wakapi/config/db.go
+            echo
             git status
 
       # 第二步：登录到 GitHub Container Registry (ghcr.io)

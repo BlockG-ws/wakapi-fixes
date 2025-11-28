@@ -34,6 +34,7 @@ jobs:
         with:
             repository: 'muety/wakapi'
             submodules: 'recursive'
+            path: wakapi
         
       - name: Patch the source
         working-directory: wakapi
@@ -58,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./wakapi # Dockerfile 的上下文路径，. 代表项目根目录
-          file: ./Dockerfile # Dockerfile 的路径
+          file: ./wakapi/Dockerfile # Dockerfile 的路径
           push: true # 推送到镜像仓库
           tags: |
             ${{ env.IMAGE_NAME }}:latest

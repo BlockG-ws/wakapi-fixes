@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 # 2. 定义环境变量，方便后续引用
 env:
@@ -44,6 +45,14 @@ jobs:
             cat ./config/db.go
             echo
             git status
+      
+      - name: Get upstream commit SHA
+        id: upstream
+        working-directory: wakapi
+        run: |
+            UPSTREAM_SHA=$(git rev-parse HEAD)
+            echo "sha=$UPSTREAM_SHA" >> $GITHUB_OUTPUT
+            echo "Upstream wakapi commit SHA: $UPSTREAM_SHA"
 
       # 第二步：登录到 GitHub Container Registry (ghcr.io)
       # 使用 docker/login-action 登录
@@ -66,4 +75,4 @@ jobs:
           push: true # 推送到镜像仓库
           tags: |
             ${{ env.IMAGE_NAME }}:latest
-            ${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.IMAGE_NAME }}:${{ steps.upstream.outputs.sha }}
